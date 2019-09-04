@@ -1,12 +1,10 @@
 package global.coda.hospital.patientdao;
 
-import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
-
 import com.opencsv.CSVReader;
 import com.opencsv.bean.ColumnPositionMappingStrategy;
 import com.opencsv.bean.CsvToBean;
@@ -15,16 +13,17 @@ import com.opencsv.bean.StatefulBeanToCsvBuilder;
 
 import global.coda.hospital.bean.PatientRecord;
 
-public class PatientDAO extends PersonDAOPattern {
+public class DoctorDAO extends PersonDAOPattern{
+	
 
-	public PatientDAO() {
+	public DoctorDAO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
 	public static final ResourceBundle LOCAL_MESSAGES_BUNDLE = ResourceBundle.getBundle("messages",
 			Locale.getDefault());
-	private final String CSV_LOCATION = LOCAL_MESSAGES_BUNDLE.getString("HOS0000P");
+	private final String CSV_LOCATION = LOCAL_MESSAGES_BUNDLE.getString("HOS0001P");
 
 	public void patientDataBase(List<PatientRecord> patientRecords) {
 		try {
@@ -54,46 +53,6 @@ public class PatientDAO extends PersonDAOPattern {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-	@SuppressWarnings("null")
-	public void patientsingleCSVupdate(PatientRecord record) {
-		List<PatientRecord> patientRecords = null;
-
-		try {
-			// Creating writer class to generate
-			// csv file
-			File csvfile = new File(CSV_LOCATION);
-			if (csvfile.exists() && csvfile.canWrite() && csvfile.isFile()) {
-				FileWriter filewriter = new FileWriter(CSV_LOCATION, true);
-
-				patientRecords.add(record);
-
-				// create a list of employee
-
-				// Create Mapping Strategy to arrange the
-				// column name in order
-				ColumnPositionMappingStrategy<PatientRecord> mappingStrategy = new ColumnPositionMappingStrategy<>();
-				mappingStrategy.setType(PatientRecord.class);
-				// Arrange column name as provided in below array.
-				String[] columns = new String[] { "id", "name", "age", "location" };
-				mappingStrategy.setColumnMapping(columns);
-
-				// Createing StatefulBeanToCsv object
-				StatefulBeanToCsvBuilder<PatientRecord> beantocsvbuilder = new StatefulBeanToCsvBuilder<>(filewriter);
-				StatefulBeanToCsv<PatientRecord> beanWriter = beantocsvbuilder.withMappingStrategy(mappingStrategy)
-						.build();
-
-				// Write list to StatefulBeanToCsv object
-				beanWriter.write(patientRecords);
-
-				// closing the writer object
-				filewriter.close();
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
 	}
 
 	@SuppressWarnings("deprecation")
@@ -138,5 +97,7 @@ public class PatientDAO extends PersonDAOPattern {
 	}
 
 	// using json file
+
+
 
 }

@@ -1,9 +1,13 @@
 package global.coda.hospital.bean;
 
-import java.util.List;
 
 public class PatientRecord {
-    private String id;
+    @Override
+	public String toString() {
+		return "PatientRecord [id=" + id + ", age=" + age + ", name=" + name + ", location=" + location + "]";
+	}
+
+	private String id;
     private String age;
     private String name;
     private String location;

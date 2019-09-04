@@ -49,7 +49,7 @@
               <ul>
                 <li>
                   <a href="#" panel-name="test-xml-Default_suite" class="navigator-link ">
-                    <span>C:\Users\VC\AppData\Local\Temp\testng-eclipse-1386327712\testng-customsuite.xml</span>
+                    <span>C:\Users\VC\AppData\Local\Temp\testng-eclipse--1676540295\testng-customsuite.xml</span>
                   </a> <!-- navigator-link  -->
                 </li>
                 <li>
@@ -102,7 +102,7 @@
                     <div class="method-list-content failed suite-Default_suite">
                       <span>
                         <img src="failed.png" width="3%"/>
-                        <a href="#" panel-name="suite-Default_suite" title="global.coda.hospital.operations.OperationsTest" class="method navigator-link" hash-for-method="createIOTest">createIOTest</a> <!-- method navigator-link -->
+                        <a href="#" panel-name="suite-Default_suite" title="global.coda.hospital.operations.OperationsTest" class="method navigator-link" hash-for-method="updateIOTest">updateIOTest</a> <!-- method navigator-link -->
                       </span>
                       <br/>
                     </div> <!-- method-list-content failed suite-Default_suite -->
@@ -125,13 +125,13 @@
             <div class="main-panel-content rounded-window-bottom">
               <div class="method">
                 <div class="method-content">
-                  <a name="createIOTest">
-                  </a> <!-- createIOTest -->
-                  <span class="method-name">createIOTest</span>
+                  <a name="updateIOTest">
+                  </a> <!-- updateIOTest -->
+                  <span class="method-name">updateIOTest</span>
                   <div class="stack-trace">org.testng.TestException: 
-Method OperationsTest.createIOTest()[pri:0, instance:global.coda.hospital.operations.OperationsTest@3bd40a57] should have thrown an exception of type class global.coda.hospital.exceptions.HospitalExceptions
-	at org.testng.internal.ExpectedExceptionsHolder.noException(ExpectedExceptionsHolder.java:82)
-	at org.testng.internal.TestInvoker.considerExceptions(TestInvoker.java:729)
+The exception was thrown with the wrong message: expected &quot;Invalid Input Exception&quot; but got &quot;HOS1000E:Invalid Input Exception&quot;
+	at org.testng.internal.ExpectedExceptionsHolder.wrongException(ExpectedExceptionsHolder.java:70)
+	at org.testng.internal.TestInvoker.considerExceptions(TestInvoker.java:719)
 	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:616)
 	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:172)
 	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)
@@ -155,6 +155,16 @@ Method OperationsTest.createIOTest()[pri:0, instance:global.coda.hospital.operat
 	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
 	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
 	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+Caused by: global.coda.hospital.exceptions.HospitalExceptions: HOS1000E:Invalid Input Exception
+	at global.coda.hospital.operations.Operations.updateRecord(Operations.java:201)
+	at global.coda.hospital.operations.OperationsTest.updateIOTest(OperationsTest.java:31)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:567)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133)
+	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:584)
+	... 22 more
 
 </div> <!-- stack-trace -->
                 </div> <!-- method-content -->
@@ -164,7 +174,7 @@ Method OperationsTest.createIOTest()[pri:0, instance:global.coda.hospital.operat
         </div> <!-- panel Default_suite -->
         <div panel-name="test-xml-Default_suite" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">C:\Users\VC\AppData\Local\Temp\testng-eclipse-1386327712\testng-customsuite.xml</span>
+            <span class="header-content">C:\Users\VC\AppData\Local\Temp\testng-eclipse--1676540295\testng-customsuite.xml</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <pre>
@@ -215,14 +225,14 @@ data.addColumn('string', 'Class');
 data.addColumn('number', 'Time (ms)');
 data.addRows(1);
 data.setCell(0, 0, 0)
-data.setCell(0, 1, 'createIOTest')
+data.setCell(0, 1, 'updateIOTest')
 data.setCell(0, 2, 'global.coda.hospital.operations.OperationsTest')
-data.setCell(0, 3, 25596);
+data.setCell(0, 3, 9221);
 window.suiteTableData['Default_suite']= { tableData: data, tableDiv: 'times-div-Default_suite'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 25 seconds</span>
+              <span class="suite-total-time">Total running time: 9 seconds</span>
               <div id="times-div-Default_suite">
               </div> <!-- times-div-Default_suite -->
             </div> <!-- times-div -->
@@ -256,8 +266,8 @@ return data;
               <div class="test-method">
                 <img src="failed.png">
                 </img>
-                <span class="method-name">createIOTest</span>
-                <span class="method-start">676 ms</span>
+                <span class="method-name">updateIOTest</span>
+                <span class="method-start">797 ms</span>
               </div> <!-- test-method -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->
