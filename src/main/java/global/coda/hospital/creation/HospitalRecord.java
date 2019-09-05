@@ -143,12 +143,16 @@ public class HospitalRecord {
 					break;
 				}
 				}
+			} catch (NullPointerException exception) {
+				LOGGER.error(LOCAL_MESSAGES_BUNDLE.getString("HOS1000E"));
+
 			} catch (InputMismatchException exception) {
 				LOGGER.error(LOCAL_MESSAGES_BUNDLE.getString("HOS1000E"));
 
+			} finally {
+				scanner.close();
 			}
 
 		}
-		scanner.close();
 	}
 }
