@@ -7,6 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import global.coda.hospital.Hospital;
+import global.coda.hospital.constants.HospitalConstants;
 import global.coda.hospital.patientdao.PersonType.person;
 
 public class DAOFactory {
@@ -21,18 +22,18 @@ public class DAOFactory {
 		switch (value) {
 		case PATIENT: {
 			// patient type data storage
-			LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString("HOS9001I"));
+			LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString((HospitalConstants.HOS9001I)));
 			personObject = new PatientDAO();
 			break;
 		}
 		case DOCTOR: {
 			// Doctor type data storage
-			LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString("HOS9002I"));
+			LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString((HospitalConstants.HOS9002I)));
 			personObject = new DoctorDAO();
 			break;
 		}
 		default:
-			LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString("HOS9002I"));
+			LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString((HospitalConstants.HOS9002I)));
 			personObject = new PatientDAO();
 			break;
 		}

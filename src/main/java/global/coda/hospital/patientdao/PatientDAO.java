@@ -7,13 +7,18 @@ import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.opencsv.CSVReader;
 import com.opencsv.bean.ColumnPositionMappingStrategy;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.StatefulBeanToCsv;
 import com.opencsv.bean.StatefulBeanToCsvBuilder;
 
+import global.coda.hospital.Hospital;
 import global.coda.hospital.bean.PatientRecord;
+import global.coda.hospital.constants.HospitalConstants;
 
 public class PatientDAO extends PersonDAOPattern {
 
@@ -21,10 +26,10 @@ public class PatientDAO extends PersonDAOPattern {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
 	public static final ResourceBundle LOCAL_MESSAGES_BUNDLE = ResourceBundle.getBundle("messages",
 			Locale.getDefault());
 	private final String CSV_LOCATION = LOCAL_MESSAGES_BUNDLE.getString("HOS0000P");
+	private static final Logger LOGGER = LogManager.getLogger(Hospital.class);
 
 	public void patientDataBase(List<PatientRecord> patientRecords) {
 		try {
@@ -52,7 +57,7 @@ public class PatientDAO extends PersonDAOPattern {
 			// closing the writer object
 			writer.close();
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.debug(LOCAL_MESSAGES_BUNDLE.getString(HospitalConstants.HOS1200E));
 		}
 	}
 
@@ -91,7 +96,7 @@ public class PatientDAO extends PersonDAOPattern {
 				filewriter.close();
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.debug(LOCAL_MESSAGES_BUNDLE.getString(HospitalConstants.HOS1200E));
 		}
 
 	}
@@ -122,7 +127,7 @@ public class PatientDAO extends PersonDAOPattern {
 			// Print the Employee Details
 
 		} catch (Exception ee) {
-			ee.printStackTrace();
+			LOGGER.debug(LOCAL_MESSAGES_BUNDLE.getString(HospitalConstants.HOS1200E));
 		} finally {
 			try {
 				// closing the reader
@@ -131,7 +136,7 @@ public class PatientDAO extends PersonDAOPattern {
 				csvReader.close();
 				return empList;
 			} catch (Exception ee) {
-				ee.printStackTrace();
+				LOGGER.debug(LOCAL_MESSAGES_BUNDLE.getString(HospitalConstants.HOS1200E));
 			}
 		}
 		return empList;

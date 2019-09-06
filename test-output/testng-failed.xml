@@ -5,7 +5,7 @@
     <classes>
       <class name="global.coda.hospital.operations.OperationsTest">
         <methods>
-          <include name="deleteIOTest"/>
+          <include name="displayallTest"/>
           <include name="SetUp"/>
         </methods>
       </class> <!-- global.coda.hospital.operations.OperationsTest -->

@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import global.coda.hospital.constants.HospitalConstants;
 import global.coda.hospital.creation.HospitalRecord;
 import global.coda.hospital.exceptions.HospitalExceptions;
 
@@ -23,7 +24,7 @@ public class Hospital {
 	public static void main(String args[]) throws HospitalExceptions {
 		// choice printing
 		HospitalRecord record = new HospitalRecord();
-		LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString("HOS0002D"));
+		LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString((HospitalConstants.HOS0002D)));
 
 		record.records();
 
