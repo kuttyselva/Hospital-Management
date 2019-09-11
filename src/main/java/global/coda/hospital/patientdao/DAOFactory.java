@@ -6,13 +6,12 @@ import java.util.ResourceBundle;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import global.coda.hospital.Hospital;
 import global.coda.hospital.constants.HospitalConstants;
 import global.coda.hospital.patientdao.PersonType.person;
 
 public class DAOFactory {
 	// Logger class will log the status
-	public static final Logger LOGGER = LogManager.getLogger(Hospital.class);
+	public static final Logger LOGGER = LogManager.getLogger(DAOFactory.class);
 	// ResourceBundle class will use SystemMessages.properties file
 	public static final ResourceBundle LOCAL_MESSAGES_BUNDLE = ResourceBundle.getBundle("messages",
 			Locale.getDefault());

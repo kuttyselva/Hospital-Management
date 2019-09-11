@@ -3,13 +3,13 @@ package global.coda.hospital.creation;
 import java.util.*;
 
 import global.coda.hospital.patientdao.DAOFactory;
-import global.coda.hospital.patientdao.PatientDAO;
 import global.coda.hospital.patientdao.PersonDAOPattern;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import global.coda.hospital.patientdao.PersonType;
-import global.coda.hospital.Hospital;
+import global.coda.hospital.persondao.PersonTypeSql;
+import global.coda.hospital.persondao.DAOFactorySql;
+import global.coda.hospital.persondao.PersonDAOPatternSql;
 import global.coda.hospital.enums.*;
 import global.coda.hospital.bean.PatientRecord;
 import global.coda.hospital.constants.HospitalConstants;
@@ -19,14 +19,12 @@ import global.coda.hospital.operations.Operations;
 public class HospitalRecord {
 
 	// Logger class will log the status
-	public static final Logger LOGGER = LogManager.getLogger(Hospital.class);
+	public static final Logger LOGGER = LogManager.getLogger(HospitalRecord.class);
 	// ResourceBundle class will use SystemMessages.properties file
 	public static final ResourceBundle LOCAL_MESSAGES_BUNDLE = ResourceBundle.getBundle("messages",
 			Locale.getDefault());
-
 	PatientRecord patientrecord = new PatientRecord();
-	PatientDAO patientdao = null;
-	PersonDAOPattern personType = null;
+	PersonDAOPatternSql personType = null;
 	List<PatientRecord> personList = null;
 
 	public void records() throws HospitalExceptions {
@@ -41,21 +39,21 @@ public class HospitalRecord {
 		PatientEnum choice = PatientEnum.valueOf(choices);
 		LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(HospitalConstants.HOS9000I));
 		persontype = scanner.next();
-		if (persontype.equalsIgnoreCase("2")) {
-			personType = DAOFactory.storagePattern(PersonType.person.PATIENT);
-		} else if (persontype.equalsIgnoreCase("1")) {
-			personType = DAOFactory.storagePattern(PersonType.person.DOCTOR);
+//		if (persontype.equalsIgnoreCase("2")) {
+			personType = DAOFactorySql.storagePattern(PersonTypeSql.person.PATIENT);
+//		} else if (persontype.equalsIgnoreCase("1")) {
+//			personType = DAOFactory.storagePattern(PersonType.person.DOCTOR);
 
-		} else {
-			personType = DAOFactory.storagePattern(PersonType.person.PATIENT);
-		}
+//		} else {
+//			personType = DAOFactory.storagePattern(PersonType.person.PATIENT);
+//		}
 		personList = personType.patientDataBaseRead();
 		while (casevalue) {
 
 			try {
 				LOGGER.debug(LOCAL_MESSAGES_BUNDLE.getString(HospitalConstants.HOS1000D));
 
-				choices = scanner.nextInt();
+				choices = Integer.valueOf(scanner.next());
 				choice = PatientEnum.valueOf(choices);
 
 				switch (choice) {
@@ -67,12 +65,15 @@ public class HospitalRecord {
 					LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(HospitalConstants.HOS1100I) + key);
 
 					try {
-						personList.add(operation.createRecord(key));
+//						personList.add(operation.createRecord(key));
 //						 patientdao.patientsingleCSVupdate(operation.create(key));
 						// updates patientdatabase
 //						patientdao.patientDataBase(personList);
-
-						personType.patientDataBase(personList);
+						if(personType.createPatient(operation.createRecord(key))) {
+							LOGGER.info("inserted");
+						}
+						personType.checkUser("shindam");
+//						personType.patientDataBase(personList);
 
 					} catch (HospitalExceptions exception) {
 						LOGGER.error(LOCAL_MESSAGES_BUNDLE.getString(HospitalConstants.HOS1100E));
@@ -97,16 +98,14 @@ public class HospitalRecord {
 					// update record function
 					LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(HospitalConstants.HOS1002I));
 
-					try {
-						personList = operation.updateRecord(personList);
-						// updates patientdatabase
+					//						personList = operation.updateRecord(personList);
+					// updates patientdatabase
 //						patientdao.patientDataBase(personList);
-						// factory choice
-						personType.patientDataBase(personList);
-					} catch (HospitalExceptions exception) {
-						LOGGER.error(LOCAL_MESSAGES_BUNDLE.getString(HospitalConstants.HOS1100E));
-
+					// factory choice
+					if(!personType.checkUser("shinda")){
+						LOGGER.info("user name not found");
 					}
+//						personType.patientDataBase(personList);
 					break;
 
 				}

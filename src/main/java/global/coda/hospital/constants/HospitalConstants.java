@@ -6,6 +6,9 @@ public class HospitalConstants {
 	public static final String HOS0002D = "HOS0002D";
 	public static final String HOS1000D = "HOS1000D";
 	public static final String HOS1100I = "HOS1100I";
+	public static final String HOS1101I = "HOS1101I";
+	public static final String HOS1102I = "HOS1102I";
+
 	public static final String HOS2000D = "HOS2000D";
 	public static final String HOS2001D = "HOS2001D";
 	public static final String HOS2002D = "HOS2002D";

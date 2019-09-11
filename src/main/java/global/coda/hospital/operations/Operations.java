@@ -5,7 +5,6 @@ import global.coda.hospital.patientdao.PatientDAO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import global.coda.hospital.Hospital;
 import global.coda.hospital.bean.PatientRecord;
 import global.coda.hospital.constants.HospitalConstants;
 import global.coda.hospital.creation.HospitalRecord;
@@ -15,7 +14,7 @@ public class Operations {
 	PatientRecord record;
 	PatientDAO patientdao;
 	// Logger class will log the status
-	private static final Logger LOGGER = LogManager.getLogger(Hospital.class);
+	private static final Logger LOGGER = LogManager.getLogger(Operations.class);
 	// resource bundle initialization
 	public static final ResourceBundle LOCAL_MESSAGES_BUNDLE = ResourceBundle.getBundle("messages",
 			Locale.getDefault());
@@ -23,6 +22,10 @@ public class Operations {
 	Scanner scanner = new Scanner(System.in);
 	// create patient service function
 	public PatientRecord createRecord(int passedkey) throws HospitalExceptions {
+		/*
+		 * creates a new entry in list of patient records
+		 * returns a new patient object
+		 */
 		String key = String.valueOf(passedkey);
 		
 		String location = "";
@@ -31,6 +34,10 @@ public class Operations {
 			StringBuilder locations = new StringBuilder();
 			LOGGER.debug(LOCAL_MESSAGES_BUNDLE.getString(HospitalConstants.HOS2000D));
 			String name = scanner.next();
+			LOGGER.debug(LOCAL_MESSAGES_BUNDLE.getString(HospitalConstants.HOS1102I));
+			String password = scanner.next();
+			LOGGER.debug(LOCAL_MESSAGES_BUNDLE.getString(HospitalConstants.HOS1101I));
+			String phone = scanner.next();
 			LOGGER.debug(LOCAL_MESSAGES_BUNDLE.getString(HospitalConstants.HOS2001D));
 			String age = scanner.next();
 			Integer.parseInt(age);
@@ -46,9 +53,9 @@ public class Operations {
 			location = scanner.next();
 			locations.append(location);
 			location = locations.toString();
-
+			
 			patientrecord = new PatientRecord();
-			patientrecord.BeanRecordInsert(key, age, name, location);
+			patientrecord.BeanRecordInsert(key, age, name, location,password,phone);
 			LOGGER.info("Created");
 
 			return patientrecord;
@@ -153,21 +160,15 @@ public class Operations {
 	}
 
 	// update record function
-	public List<PatientRecord> updateRecord(List<PatientRecord> recordmap) throws HospitalExceptions {
+	public PatientRecord updateRecord() throws HospitalExceptions {
 		@SuppressWarnings("resource")
 		Scanner scanner = new Scanner(System.in);
-		int flag = 0;
-		if (recordmap.isEmpty()) {
-			LOGGER.debug(LOCAL_MESSAGES_BUNDLE.getString(HospitalConstants.HOS2002I));
-		}
+		
 		LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(HospitalConstants.HOS3000D));
 		try {
 			String name = scanner.next();
 			String location;
-			for (int index = 0; index < recordmap.size(); index++) {
-
-				record = recordmap.get(index);
-				if (name.equals(record.getId())) {
+			
 
 					StringBuilder locations = new StringBuilder();
 					LOGGER.debug(LOCAL_MESSAGES_BUNDLE.getString(HospitalConstants.HOS2000D));
@@ -191,14 +192,7 @@ public class Operations {
 					record.setLocation(location);
 					record.setName(names);
 					LOGGER.info("Updated");
-					flag = 1;
-
-				}
-			}
-			if (flag == 0) {
-				LOGGER.debug(LOCAL_MESSAGES_BUNDLE.getString(HospitalConstants.HOS2001I));
-			}
-			return recordmap;
+			return record;
 		} catch (NumberFormatException e) {
 			LOGGER.debug(LOCAL_MESSAGES_BUNDLE.getString(HospitalConstants.HOS1000E));
 			throw new HospitalExceptions(LOCAL_MESSAGES_BUNDLE.getString(HospitalConstants.HOS1000E));

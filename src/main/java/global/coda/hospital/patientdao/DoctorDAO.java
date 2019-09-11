@@ -16,7 +16,6 @@ import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.StatefulBeanToCsv;
 import com.opencsv.bean.StatefulBeanToCsvBuilder;
 
-import global.coda.hospital.Hospital;
 import global.coda.hospital.bean.PatientRecord;
 import global.coda.hospital.constants.HospitalConstants;
 
@@ -27,7 +26,7 @@ public class DoctorDAO extends PersonDAOPattern{
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	private static final Logger LOGGER = LogManager.getLogger(Hospital.class);
+	private static final Logger LOGGER = LogManager.getLogger(DoctorDAO.class);
 
 	public static final ResourceBundle LOCAL_MESSAGES_BUNDLE = ResourceBundle.getBundle("messages",
 			Locale.getDefault());
