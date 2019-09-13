@@ -7,7 +7,6 @@ import org.apache.logging.log4j.Logger;
 
 import global.coda.hospital.bean.PatientRecord;
 import global.coda.hospital.constants.HospitalConstants;
-import global.coda.hospital.creation.HospitalRecord;
 import global.coda.hospital.exceptions.HospitalExceptions;
 
 public class Operations {
@@ -18,7 +17,7 @@ public class Operations {
 	// resource bundle initialization
 	public static final ResourceBundle LOCAL_MESSAGES_BUNDLE = ResourceBundle.getBundle("messages",
 			Locale.getDefault());
-	HospitalRecord hospital = new HospitalRecord();
+//	HospitalRecord hospital = new HospitalRecord();
 	Scanner scanner = new Scanner(System.in);
 	// create patient service function
 	public PatientRecord createRecord(int passedkey) throws HospitalExceptions {

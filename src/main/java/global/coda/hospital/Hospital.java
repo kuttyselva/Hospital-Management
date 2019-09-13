@@ -7,8 +7,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import global.coda.hospital.constants.HospitalConstants;
-import global.coda.hospital.creation.HospitalRecord;
 import global.coda.hospital.exceptions.HospitalExceptions;
+import global.coda.hospital.login.HospitalLogin;
 
 /*
  * hospital management application
@@ -23,10 +23,11 @@ public class Hospital {
 
 	public static void main(String args[]) throws HospitalExceptions {
 		// choice printing
-		HospitalRecord record = new HospitalRecord();
+//		HospitalRecord record = new HospitalRecord();
+		HospitalLogin login=new HospitalLogin();
 		LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString((HospitalConstants.HOS0002D)));
-
-		record.records();
+		login.HospitalSignin();
+//		record.records();
 
 	}
 
