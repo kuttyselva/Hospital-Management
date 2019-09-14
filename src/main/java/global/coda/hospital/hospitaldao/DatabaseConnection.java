@@ -9,19 +9,25 @@ import java.util.ResourceBundle;
 public class DatabaseConnection {
 	public static final ResourceBundle LOCAL_MESSAGES_BUNDLE = ResourceBundle.getBundle("sqlqueries",
 			Locale.getDefault());
-	public static Connection connection = null;
+	public  Connection connection = null;
 
 	/*
 	 * creates connection to sql db and returns connection object
 	 */
-	public Connection createconnection() throws ClassNotFoundException, SQLException {
+	public Connection createconnection()   {
 		if (connection == null) {
-			Class.forName("com.mysql.jdbc.Driver");
+			try {
+				Class.forName("com.mysql.jdbc.Driver");
+
 			// create connection
 			String connectionUrl = LOCAL_MESSAGES_BUNDLE.getString(HospitalQueries.connection);
 			connection = DriverManager.getConnection(connectionUrl);
 			return connection;
-
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return connection;
 	}

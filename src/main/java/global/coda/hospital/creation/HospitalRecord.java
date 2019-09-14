@@ -35,7 +35,7 @@
 //		boolean casevalue = true;
 //		String persontype = "";
 //		int choices = 7;
-//		PatientEnum choice = PatientEnum.valueOf(choices);
+//		PersonEnum choice = PersonEnum.valueOf(choices);
 //		LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(HospitalConstants.HOS9000I));
 //		persontype = scanner.next();
 ////		if (persontype.equalsIgnoreCase("2")) {
@@ -53,7 +53,7 @@
 //				LOGGER.debug(LOCAL_MESSAGES_BUNDLE.getString(HospitalConstants.HOS1000D));
 //
 //				choices = Integer.valueOf(scanner.next());
-//				choice = PatientEnum.valueOf(choices);
+//				choice = PersonEnum.valueOf(choices);
 //
 //				switch (choice) {
 //				case CREATE: {
@@ -154,7 +154,7 @@
 //			} catch (Exception exception) {
 //				LOGGER.error(LOCAL_MESSAGES_BUNDLE.getString(HospitalConstants.HOS1000E));
 //				choices = 8;
-//				choice = PatientEnum.valueOf(choices);
+//				choice = PersonEnum.valueOf(choices);
 //
 //			}
 //
