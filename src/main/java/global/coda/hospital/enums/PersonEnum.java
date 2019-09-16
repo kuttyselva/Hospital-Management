@@ -5,7 +5,7 @@ import java.util.*;
 public enum PersonEnum {
 	MODIFY(1),VIEW(2);
 	private final int value;
-	private static HashMap<Object, Object> map = new HashMap<>();
+	private static HashMap<Integer, PersonEnum> map = new HashMap<>();
 	
 
     private PersonEnum(int value) {

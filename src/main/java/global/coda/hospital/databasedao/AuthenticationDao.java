@@ -34,8 +34,9 @@ public class AuthenticationDao{
 	            }
 	            userValues.add(resultSet.getInt(1));
 	            userValues.add(resultSet.getInt(2));
-	            
-	        } catch (Exception exception) {
+
+
+			} catch (Exception exception) {
 	            LOGGER.error(exception.getMessage());
 	        }
 	        return userValues;

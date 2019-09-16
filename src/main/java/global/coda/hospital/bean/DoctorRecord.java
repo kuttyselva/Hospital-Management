@@ -1,13 +1,30 @@
 package global.coda.hospital.bean;
 
 public class DoctorRecord {
-
-    private String age;
+    private int id;
+    private int age;
     private String name;
     private String location;
     private String password;
     private String phone;
     private String speciality;
+    public int getId() {
+        return id;
+    }
+    public int getAge() {
+        return age;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+
+
 
     public String getSpeciality() {
         return speciality;
@@ -62,11 +79,5 @@ public class DoctorRecord {
     }
 
 
-    public String getAge() {
-        return age;
-    }
 
-    public void setAge(String age) {
-        this.age = age;
-    }
 }
