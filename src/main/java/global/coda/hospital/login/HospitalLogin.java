@@ -65,7 +65,7 @@ public class HospitalLogin {
                 //getting patient menu choice
                 LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(LoginConstants.PATIENTMENU));
                 LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(LoginConstants.PERSONMODIFY));
-                LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(LoginConstants.DOCTORVIEW));
+                LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(LoginConstants.PATIENTVIEW));
                 int choice = scanner.nextInt();
                 PersonEnum patientchoice = PersonEnum.valueOf(choice);
                 switch (patientchoice) {
@@ -87,16 +87,15 @@ public class HospitalLogin {
                     }
                     //to view doctors in a particular branch
                     case VIEW: {
-						LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(LoginConstants.DOCTORVIEW));
-						LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(LoginConstants.BRANCHINP));
+                        LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(LoginConstants.BRANCHINP));
 
-						String updatevalue = scanner.next();
-						//true for successfull view of doctors in a branch
-						if (patientservice.viewUsers(updatevalue)) {
-							LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(LoginConstants.UPDATED));
-						} else {
-							LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(LoginConstants.UPDATEFAIL));
-						}
+                        String updatevalue = scanner.next();
+                        //true for successfull view of doctors in a branch
+                        if (patientservice.viewUsers(updatevalue)) {
+                            LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(LoginConstants.UPDATED));
+                        } else {
+                            LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(LoginConstants.UPDATEFAIL));
+                        }
                         break;
                     }
                 }
@@ -122,7 +121,7 @@ public class HospitalLogin {
 
                         String updatevalue = scanner.next();
                         //true for successful completion of execution
-                        if (doctorservice.updateUser(modifychoice, userid, updatevalue)) {
+                        if (doctorservice.updateDoctor(modifychoice, userid, updatevalue)) {
                             LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(LoginConstants.UPDATED));
                         } else {
                             LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(LoginConstants.UPDATEFAIL));
@@ -131,7 +130,6 @@ public class HospitalLogin {
                     }
                     case VIEW: {
                         //view patients in a branch
-                        LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(LoginConstants.BRANCHVIW));
                         LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(LoginConstants.BRANCHINP));
 
                         String updatevalue = scanner.next();
@@ -151,6 +149,8 @@ public class HospitalLogin {
             case BRANCH: {
                 LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(LoginConstants.BRANCH));
                 LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(LoginConstants.BRANCHMENU));
+                LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(LoginConstants.BRANCHMENUS));
+
 
                 break;
 

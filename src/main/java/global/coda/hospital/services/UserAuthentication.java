@@ -2,7 +2,7 @@ package global.coda.hospital.services;
 
 import java.util.List;
 
-import global.coda.hospital.hospitaldao.AuthenticationDao;
+import global.coda.hospital.databasedao.AuthenticationDao;
 
 public class UserAuthentication {
 	

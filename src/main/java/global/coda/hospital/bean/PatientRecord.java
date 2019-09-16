@@ -14,17 +14,28 @@ public class PatientRecord {
     private String password;
     private String phone;
 
+    public String getDisease() {
+        return disease;
+    }
+
+    public void setDisease(String disease) {
+        this.disease = disease;
+    }
+
+    private String disease;
+
 
 
 
 	public PatientRecord() {
     }
 
-    public PatientRecord(String id, String name, String age, String location) {
+    public PatientRecord(String id, String name, String age, String location,String disease) {
         this.setId(id);
         this.setAge(age);
         this.setName(name);
         this.setLocation(location);
+        this.setDisease(disease);
     }
 
     public String getId() {
@@ -76,12 +87,13 @@ public class PatientRecord {
 		this.phone = phone;
 	}
 
-    public void BeanRecordInsert(String id,String age, String name,String location,String password,String phone) {
+    public void BeanRecordInsert(String id,String age, String name,String location,String password,String phone,String disease) {
         this.setAge(age);
         this.setId(id);
         this.setName(name);
         this.setLocation(location);
         this.setPassword(password);
         this.setPhone(phone);
+        this.setDisease(disease);
     }
 }

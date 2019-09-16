@@ -1,6 +1,7 @@
 package global.coda.hospital.login;
 
 public class LoginConstants {
+
     static final String USERNAME = "LOG000I";
     static final String PASSWORD = "LOG001I";
     static final String INVALID = "LOG002I";
@@ -29,6 +30,7 @@ public class LoginConstants {
 
     static final String BRANCH = "LOGB04I";
     static final String BRANCHMENU = "LOGB05I";
+    static final String BRANCHMENUS = "LOGB06I";
 
     static final String GLOBAL = "LOGG04I";
     static final String GLOBALMENU = "LOGG05I";
