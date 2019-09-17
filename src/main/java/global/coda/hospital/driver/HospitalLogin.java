@@ -8,7 +8,9 @@ import java.util.Scanner;
 import global.coda.hospital.bean.DoctorRecord;
 import global.coda.hospital.bean.PatientRecord;
 import global.coda.hospital.enums.BranchEnum;
+import global.coda.hospital.enums.GlobalEnum;
 import global.coda.hospital.enums.PersonEnum;
+import global.coda.hospital.services.BranchServices;
 import global.coda.hospital.services.DoctorServices;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -54,7 +56,7 @@ public class HospitalLogin {
             LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.SUCCESS));
             LOGGER.info(username + LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.USERID) + " " + userid);
             //setting path according to user role
-            while(true) {
+            while (true) {
                 userpath(roleid);
             }
         } catch (NullPointerException e) {
@@ -170,63 +172,61 @@ public class HospitalLogin {
             case BRANCH: {
                 //branch menu
                 LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.BRANCH));
-                LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.BRANCHMENU));
-                LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.BRANCHMENUS));
-                //getting choice
-                int choice = scanner.nextInt();
-                BranchEnum branchchoice = BranchEnum.valueOf(choice);
-                BranchDriver branch = new BranchDriver();
-                switch (branchchoice) {
-                    case ADDDOCTOR: {
-                        //adding new doctor
-                        doctorRecord = branch.createDoctor();
-                        if (doctorservice.createDoctor(doctorRecord)) {
-                            LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.UPDATED));
-                        } else {
-                            LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.UPDATEFAIL));
-                        }
-                        break;
-                    }
-                    case ADDPATIENT: {
-                        //adding new patient
-                        patientRecord = branch.createPatient();
-                        if (patientservice.createPatient(patientRecord)) {
-                            LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.UPDATED));
-                        } else {
-                            LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.UPDATEFAIL));
-                        }
-
-                        break;
-                    }
-                    case MODIFYDOCTOR: {
-                        //modify doctor
-                        if (branch.modifyDoctor()) {
-                            LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.UPDATED));
-                        } else {
-                            LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.UPDATEFAIL));
-                        }
-                        break;
-                    }
-                    case MODIFYPATIENT: {
-                        //modify patient
-                        if (branch.modifyPatient()) {
-                            LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.UPDATED));
-                        } else {
-                            LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.UPDATEFAIL));
-                        }
-                        break;
-                    }
-                    case BRANCHENTRY: {
-
-                        break;
-                    }
+                BranchDriver branchDriver = new BranchDriver();
+                try {
+                    branchDriver.branchDriver();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
                 break;
 
             }
             case GLOBAL: {
+                GlobalHelpers globalHelpers = new GlobalHelpers();
+                BranchServices branchServices = new BranchServices();
                 LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.GLOBAL));
                 LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.GLOBALMENU));
+                int choice = scanner.nextInt();
+                GlobalEnum globalChoice = GlobalEnum.valueOf(choice);
+                switch (globalChoice) {
+                    case CREATEBRANCH: {
+                        if (branchServices.createBranch(globalHelpers.createBranch())) {
+                            LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.UPDATED));
+                        } else {
+                            LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.UPDATEFAIL));
+                        }
+                        break;
+                    }
+                    case MODIFYBRANCH: {
+                        if (globalHelpers.modifyBranch()) {
+                            LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.UPDATED));
+                        } else {
+                            LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.UPDATEFAIL));
+                        }
+                        break;
+                    }
+                    case CREATEHOSPITAL: {
+                        if (globalHelpers.createHospital()) {
+                            LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.UPDATED));
+                        } else {
+                            LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.UPDATEFAIL));
+                        }
+                        break;
+
+                    }
+                    case MODIFYHOSPITAL: {
+                        if (globalHelpers.updateHospital()) {
+                            LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.UPDATED));
+                        } else {
+                        }
+                        break;
+                    }
+                    case USEROPTION: {
+                        BranchDriver branchDriver = new BranchDriver();
+                        branchDriver.branchDriver();
+                        break;
+                    }
+                }
 
                 break;
 

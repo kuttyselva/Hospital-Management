@@ -2,6 +2,7 @@ package global.coda.hospital.driver;
 
 import global.coda.hospital.bean.DoctorRecord;
 import global.coda.hospital.bean.PatientRecord;
+import global.coda.hospital.enums.BranchEnum;
 import global.coda.hospital.services.DoctorServices;
 import global.coda.hospital.services.PatientServices;
 import org.apache.logging.log4j.LogManager;
@@ -16,72 +17,69 @@ public class BranchDriver {
     // Logger class will log the status
     private static final Logger LOGGER = LogManager.getLogger(BranchDriver.class);
     // resource bundle initialization
-    public static final ResourceBundle LOCAL_MESSAGES_BUNDLE = ResourceBundle.getBundle(DriverConstants.LOGIN, Locale.getDefault());
-    PatientServices patientServices = new PatientServices();
-    DoctorServices doctorServices=new DoctorServices();
-    Scanner scanner = null;
-
-    public PatientRecord createPatient() {
-        PatientRecord record = new PatientRecord();
-        scanner = new Scanner(System.in);
-        LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.ENTER_NAME));
-        record.setName(scanner.next());
-        LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.ENTER_PASS));
-        record.setPassword(scanner.next());
-        LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.ENTER_AGE));
-        record.setAge(scanner.nextInt());
-        LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.ENTER_PHONE));
-        record.setPhone(scanner.next());
-        LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.ENTER_LOCATION));
-        record.setLocation(scanner.next());
-        LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.ENTER_DISEASE));
-        record.setDisease(scanner.next());
-        scanner.close();
-        return record;
-    }
-
-    public boolean modifyPatient() {
-        LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.UPDATE_OPTION));
-        scanner = new Scanner(System.in);
-        LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.ENTER_NAME));
-        String name = scanner.next();
+    public static final ResourceBundle LOCAL_MESSAGES_BUNDLE = ResourceBundle.getBundle("login", Locale.getDefault());
+    PatientRecord patientRecord=new PatientRecord();
+    DoctorRecord doctorRecord=new DoctorRecord();
+    DoctorServices doctorservice=new DoctorServices();
+    PatientServices patientservice=new PatientServices();
+    public void branchDriver(){
+        Scanner scanner =new Scanner(System.in);
+        //branch menu
+        LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.BRANCHMENU));
+        LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.BRANCHMENUS));
+        //getting choice
         int choice = scanner.nextInt();
-        LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.PERSONUPDATEVALUE));
-        String newValue = scanner.next();
+        BranchEnum branchchoice = BranchEnum.valueOf(choice);
+        BranchHelpers branch = new BranchHelpers();
+        switch (branchchoice) {
+            case ADDDOCTOR: {
+                //adding new doctor
+                doctorRecord = branch.createDoctor();
+                if (doctorservice.createDoctor(doctorRecord)) {
+                    LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.UPDATED));
+                } else {
+                    LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.UPDATEFAIL));
+                }
+                break;
+            }
+            case ADDPATIENT: {
+                //adding new patient
+                patientRecord = branch.createPatient();
+                if (patientservice.createPatient(patientRecord)) {
+                    LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.UPDATED));
+                } else {
+                    LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.UPDATEFAIL));
+                }
 
-        return patientServices.updateUser(choice, name, newValue);
-
-    }
-
-    public DoctorRecord createDoctor() {
-        DoctorRecord record = new DoctorRecord();
-        scanner = new Scanner(System.in);
-        LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.ENTER_NAME));
-        record.setName(scanner.next());
-        LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.ENTER_PASS));
-        record.setPassword(scanner.next());
-        LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.ENTER_AGE));
-        record.setAge(scanner.nextInt());
-        LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.ENTER_PHONE));
-        record.setPhone(scanner.next());
-        LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.ENTER_LOCATION));
-        record.setLocation(scanner.next());
-        LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.ENTER_SPECIALITY));
-        record.setSpeciality(scanner.next());
-        scanner.close();
-        return record;
-    }
-
-    public boolean modifyDoctor() {
-        LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.UPDATE_OPTION_DOC));
-        scanner = new Scanner(System.in);
-        LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.ENTER_NAME));
-        String name = scanner.next();
-        int choice = scanner.nextInt();
-        LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.PERSONUPDATEVALUE));
-        String newValue = scanner.next();
-
-        return doctorServices.updateDoctor(choice, name, newValue);
-
+                break;
+            }
+            case MODIFYDOCTOR: {
+                //modify doctor
+                if (branch.modifyDoctor()) {
+                    LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.UPDATED));
+                } else {
+                    LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.UPDATEFAIL));
+                }
+                break;
+            }
+            case MODIFYPATIENT: {
+                //modify patient
+                if (branch.modifyPatient()) {
+                    LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.UPDATED));
+                } else {
+                    LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.UPDATEFAIL));
+                }
+                break;
+            }
+            case BRANCHENTRY: {
+                //modify patient
+                if (branch.patientDoctorEntry()) {
+                    LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.UPDATED));
+                } else {
+                    LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.UPDATEFAIL));
+                }
+                break;
+            }
+        }
     }
 }
