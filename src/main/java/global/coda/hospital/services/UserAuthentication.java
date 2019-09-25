@@ -11,6 +11,6 @@ public class UserAuthentication {
 		 * connects dao layer to get role id of user
 		 */
 		AuthenticationDao auth=new AuthenticationDao();
-		return auth.Authuser(username, password);
+		return auth.authUser(username, password);
 	}
 }

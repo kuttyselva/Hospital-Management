@@ -5,7 +5,7 @@ import java.util.HashMap;
 public enum BranchEnum {
 
 
-        ADDDOCTOR(3),ADDPATIENT(1),MODIFYDOCTOR(4),MODIFYPATIENT(2),BRANCHENTRY(5);
+        ADDDOCTOR(3),ADDPATIENT(1),MODIFYDOCTOR(4),MODIFYPATIENT(2),BRANCHENTRY(5),DEFAULT(6);
         private final int value;
         private static HashMap<Integer, BranchEnum> map = new HashMap<Integer, BranchEnum>();
 

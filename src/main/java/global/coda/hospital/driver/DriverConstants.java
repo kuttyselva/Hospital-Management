@@ -17,7 +17,7 @@ public class DriverConstants {
     static final String UPDATEFAIL = "LOGFUPD";
 
     static final String BRANCHINP = "LOGDINB";
-    static final String BRANCHVIW = "LOGPVIW";
+    static final String DOCTOR_MODIFY = "LOGPM0I";
     static final String PATIENT_NAME = "PATNM0Q";
     //doctor constants
     static final String DOCNAME = "DOC000P";
@@ -59,6 +59,9 @@ public class DriverConstants {
     static final String BRANCH_UPDATE_MENU = "LOGGBUI";
 
 
+//errors
+    static final String INPUT_MISMATCH="Invalid Input , Please Enter Correct One.";
+    static final String VALID_CHOICE="Enter Valid Choice";
 
 
 

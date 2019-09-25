@@ -3,6 +3,7 @@ package global.coda.hospital.services;
 import global.coda.hospital.bean.DoctorRecord;
 import global.coda.hospital.bean.PatientRecord;
 import global.coda.hospital.doctordao.DoctorDAO;
+import global.coda.hospital.driver.DriverConstants;
 import global.coda.hospital.userinterface.DoctorInterface;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,6 +17,8 @@ public class DoctorServices implements DoctorInterface {
     private static final Logger LOGGER = LogManager.getLogger(DoctorServices.class);
     // resource bundle initialization
     public static final ResourceBundle LOCAL_MESSAGES_BUNDLE = ResourceBundle.getBundle(ServiceConstants.SQLQUERIES,
+            Locale.getDefault());
+    public static final ResourceBundle LOCAL_MESSAGES = ResourceBundle.getBundle(ServiceConstants.LOGIN,
             Locale.getDefault());
     private DoctorDAO doctordao = new DoctorDAO();
     /*
@@ -45,8 +48,12 @@ inputs : choice , doctor id , new value
 
             case 2: {
                 //update age
-                record.setAge(Integer.parseInt(newdoctorValue));
-                result = new DoctorDAO().updateDoctor(record);
+                try {
+                    record.setAge(Integer.parseInt(newdoctorValue));
+                    result = new DoctorDAO().updateDoctor(record);
+                }catch (NumberFormatException exception){
+                    LOGGER.error(ServiceConstants.INPUT_MISMATCH);
+                }
                 break;
             }
             case 3: {

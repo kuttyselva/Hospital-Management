@@ -7,6 +7,7 @@ import global.coda.hospital.services.HospitalServices;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.InputMismatchException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.Scanner;
@@ -35,14 +36,18 @@ public class GlobalHelpers {
     }
 
     public boolean modifyBranch() {
-        LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.BRANCH_UPDATE_MENU));
-        int choice = scanner.nextInt();
-        LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.BRANCH_NAME));
-        String name = scanner.next();
-        LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.PERSONUPDATEVALUE));
-        String newValue = scanner.next();
-
-        return branchServices.modifyBranch(choice, name, newValue);
+        try {
+            LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.BRANCH_UPDATE_MENU));
+            int choice = scanner.nextInt();
+            LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.BRANCH_NAME));
+            String name = scanner.next();
+            LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.PERSONUPDATEVALUE));
+            String newValue = scanner.next();
+            return branchServices.modifyBranch(choice, name, newValue);
+        }catch (InputMismatchException exception) {
+            LOGGER.error(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.INPUT_MISMATCH));
+        }
+        return false;
     }
 
     public boolean createHospital() {

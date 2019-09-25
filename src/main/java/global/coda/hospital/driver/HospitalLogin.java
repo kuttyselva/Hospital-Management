@@ -1,15 +1,12 @@
 package global.coda.hospital.driver;
 
-import java.util.List;
-import java.util.Locale;
-import java.util.ResourceBundle;
-import java.util.Scanner;
+import java.util.*;
 
 import global.coda.hospital.bean.DoctorRecord;
 import global.coda.hospital.bean.PatientRecord;
-import global.coda.hospital.enums.BranchEnum;
 import global.coda.hospital.enums.GlobalEnum;
 import global.coda.hospital.enums.PersonEnum;
+import global.coda.hospital.exceptions.HospitalExceptions;
 import global.coda.hospital.services.BranchServices;
 import global.coda.hospital.services.DoctorServices;
 import org.apache.logging.log4j.LogManager;
@@ -24,16 +21,11 @@ public class HospitalLogin {
     private static final Logger LOGGER = LogManager.getLogger(HospitalLogin.class);
     // resource bundle initialization
     public static final ResourceBundle LOCAL_MESSAGES_BUNDLE = ResourceBundle.getBundle("login", Locale.getDefault());
-    private int userid = 0;
-    private int roleid = 0;
     private String username = "";
-    private String password = "";
-    private Scanner scanner = null;
-    private PatientRecord patientRecord = new PatientRecord();
-    private DoctorRecord doctorRecord = new DoctorRecord();
-    private UserAuthentication userauthenticate = new UserAuthentication();
-    private PatientServices patientservice = new PatientServices();
-    private DoctorServices doctorservice = new DoctorServices();
+    private Scanner scanner = new Scanner(System.in);
+    private UserAuthentication userAuthenticate = new UserAuthentication();
+    private PatientServices patientServices = new PatientServices();
+    private DoctorServices doctorServices = new DoctorServices();
 
     /*
      * login using username and password this function returns role id of that
@@ -41,31 +33,31 @@ public class HospitalLogin {
      */
     public void HospitalSignin() {
 
-        try {
-            List<Integer> user;
-            scanner = new Scanner(System.in);
-            // getting username and password
-            LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.USERNAME));
-            username = scanner.next();
-            LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.PASSWORD));
-            password = scanner.next();
-            //setting userid  roleid from dao layer to driver
-            user = userauthenticate.userauth(username, password);
-            userid = user.get(0);
-            roleid = user.get(1);
-            LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.SUCCESS));
-            LOGGER.info(username + LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.USERID) + " " + userid);
-            //setting path according to user role
-            while (true) {
-                userpath(roleid);
-            }
-        } catch (NullPointerException e) {
-            LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.INVALID));
-        }
 
+        List<Integer> user;
+        // getting username and password
+        LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.USERNAME));
+        username = scanner.next();
+        LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.PASSWORD));
+        String password = scanner.next();
+        //setting user id , role id from dao layer to driver
+        user = userAuthenticate.userauth(username, password);
+        int userId = user.get(0);
+        int roleId = user.get(1);
+        LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.SUCCESS));
+        LOGGER.info(username + LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.USERID) + " " + userId);
+        //setting path according to user role
+        while (true) {
+            try {
+                userpath(roleId);
+            } catch (NullPointerException | HospitalExceptions e) {
+                LOGGER.error(DriverConstants.INPUT_MISMATCH);
+            }
+        }
     }
 
-    private void userpath(int roleid) {
+
+    private void userpath(int roleid) throws HospitalExceptions {
         LoginEnum user = LoginEnum.valueOf(roleid);
         switch (user) {
             //Patient menu case
@@ -75,50 +67,64 @@ public class HospitalLogin {
                 LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.PATIENTMENU));
                 LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.PERSONMODIFY));
                 LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.PATIENTVIEW));
-                int choice = scanner.nextInt();
-                PersonEnum patientchoice = PersonEnum.valueOf(choice);
-                switch (patientchoice) {
-                    //to modify patient details
-                    case MODIFY: {
-                        //getting update option 1)location 2)age 3)phone 4) disease
-                        LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.PERSONMODIFYOPTION));
-                        int modifychoice = scanner.nextInt();
-                        LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.PERSONUPDATEVALUE));
-
-                        String updatevalue = scanner.next();
-                        //true for successfull updation
-                        if (patientservice.updateUser(modifychoice, username, updatevalue)) {
-                            LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.UPDATED));
-                        } else {
-                            LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.UPDATEFAIL));
-                        }
-                        break;
+                try {
+                    int choice = scanner.nextInt();
+                    if (choice > 2 || choice < 1) {
+                        choice = 3;
                     }
-                    //to view doctors in a particular branch
-                    case VIEW: {
-                        LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.BRANCHINP));
-
-                        String updatevalue = scanner.next();
-                        //true for successfull view of doctors in a branch
-                        List<DoctorRecord> recordlist = patientservice.viewUsers(updatevalue);
-                        DoctorRecord record = null;
-                        if (recordlist != null) {
-                            for (DoctorRecord doctorRecord : recordlist) {
-                                record = doctorRecord;
-                                LOGGER.debug(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.DOCNAME) + record.getName());
-                                LOGGER.debug(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.DOCSPE) + record.getSpeciality());
-                                LOGGER.debug(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.DOCLOC) + record.getLocation());
+                    PersonEnum patientChoice = PersonEnum.valueOf(choice);
+                    switch (patientChoice) {
+                        //to modify patient details
+                        case MODIFY: {
+                            //getting update option 1)location 2)age 3)phone 4) disease
+                            LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.PERSONMODIFYOPTION));
+                            int modifyChoice = scanner.nextInt();
+                            if(modifyChoice>4 || modifyChoice <1){
+                                LOGGER.info(DriverConstants.VALID_CHOICE);
+                                this.userpath(roleid);
                             }
-                        } else {
-                            LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.UPDATEFAIL));
+                            LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.PERSONUPDATEVALUE));
+
+                            String updateValue = scanner.next();
+                            //true for successful update
+                            if (patientServices.updateUser(modifyChoice, username, updateValue)) {
+                                LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.UPDATED));
+                            } else {
+                                LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.UPDATEFAIL));
+                            }
+                            break;
                         }
-                        break;
+                        //to view doctors in a particular branch
+                        case VIEW: {
+                            LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.BRANCHINP));
+
+                            String updateValue = scanner.next();
+                            //true for successful view of doctors in a branch
+                            List<DoctorRecord> recordList = patientServices.viewUsers(updateValue);
+                            DoctorRecord record;
+                            if (recordList != null) {
+                                for (DoctorRecord doctorRecord : recordList) {
+                                    record = doctorRecord;
+                                    LOGGER.debug(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.DOCNAME) + record.getName());
+                                    LOGGER.debug(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.DOCSPE) + record.getSpeciality());
+                                    LOGGER.debug(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.DOCLOC) + record.getLocation());
+                                }
+                            } else {
+                                LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.UPDATEFAIL));
+                            }
+                            break;
+                        }
+                        case DEFAULT: {
+                            LOGGER.info(DriverConstants.VALID_CHOICE);
+                            break;
+                        }
                     }
+                } catch (InputMismatchException exception) {
+                    LOGGER.error(DriverConstants.INPUT_MISMATCH);
+                    scanner.nextLine();
+                    throw new HospitalExceptions(DriverConstants.INPUT_MISMATCH);
                 }
-
-
                 break;
-
             }
             case DOCTOR: {
                 LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.DOCTOR));
@@ -126,44 +132,61 @@ public class HospitalLogin {
                 LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.DOCTORMENU));
                 LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.PERSONMODIFY));
                 LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.DOCTORVIEW));
-                int choice = scanner.nextInt();
-                PersonEnum doctorchoice = PersonEnum.valueOf(choice);
-                switch (doctorchoice) {
-                    case MODIFY: {
-                        //modify doctor details 1)location 2)age 3)phone
-                        LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.PERSONMODIFYOPTION));
-                        int modifychoice = scanner.nextInt();
-                        LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.PERSONUPDATEVALUE));
-
-                        String updatevalue = scanner.next();
-                        //true for successful completion of execution
-                        if (doctorservice.updateDoctor(modifychoice, username, updatevalue)) {
-                            LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.UPDATED));
-                        } else {
-                            LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.UPDATEFAIL));
-                        }
-                        break;
+                try {
+                    int choice = scanner.nextInt();
+                    if (choice > 2 || choice < 1) {
+                        choice = 3;
                     }
-                    case VIEW: {
-                        //view patients in a branch
-                        LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.BRANCHINP));
-
-                        String updatevalue = scanner.next();
-                        //true for successfull view of doctors in a branch
-                        List<PatientRecord> recordlist = doctorservice.viewUsers(updatevalue);
-                        PatientRecord record = null;
-                        if (recordlist != null) {
-                            for (PatientRecord patientRecord : recordlist) {
-                                record = patientRecord;
-                                LOGGER.debug(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.DOCNAME) + record.getName());
-                                LOGGER.debug(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.DOCSPE) + record.getDisease());
-                                LOGGER.debug(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.DOCLOC) + record.getLocation());
+                    PersonEnum doctorchoice = PersonEnum.valueOf(choice);
+                    switch (doctorchoice) {
+                        case MODIFY: {
+                            //modify doctor details 1)location 2)age 3)phone
+                            LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.DOCTOR_MODIFY));
+                            int modifychoice = scanner.nextInt();
+                            if(modifychoice>4 || modifychoice <1){
+                                LOGGER.info(DriverConstants.VALID_CHOICE);
+                                this.userpath(roleid);
                             }
-                        } else {
-                            LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.UPDATEFAIL));
+                            LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.PERSONUPDATEVALUE));
+
+                            String updatevalue = scanner.next();
+                            //true for successful completion of execution
+                            if (doctorServices.updateDoctor(modifychoice, username, updatevalue)) {
+                                LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.UPDATED));
+                            } else {
+                                LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.UPDATEFAIL));
+                            }
+                            break;
                         }
-                        break;
+                        case VIEW: {
+                            //view patients in a branch
+                            LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.BRANCHINP));
+
+                            String updatevalue = scanner.next();
+                            //true for successful view of doctors in a branch
+                            List<PatientRecord> recordList = doctorServices.viewUsers(updatevalue);
+                            PatientRecord record;
+                            if (recordList != null) {
+                                for (PatientRecord patientRecord : recordList) {
+                                    record = patientRecord;
+                                    LOGGER.debug(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.DOCNAME) + record.getName());
+                                    LOGGER.debug(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.DOCSPE) + record.getDisease());
+                                    LOGGER.debug(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.DOCLOC) + record.getLocation());
+                                }
+                            } else {
+                                LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.UPDATEFAIL));
+                            }
+                            break;
+                        }
+                        case DEFAULT: {
+                            LOGGER.info(DriverConstants.VALID_CHOICE);
+                            break;
+                        }
                     }
+                } catch (InputMismatchException exception) {
+                    LOGGER.error(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.INPUT_MISMATCH));
+                    scanner.nextLine();
+                    throw new HospitalExceptions(DriverConstants.INPUT_MISMATCH);
                 }
 
                 break;
@@ -175,8 +198,8 @@ public class HospitalLogin {
                 BranchDriver branchDriver = new BranchDriver();
                 try {
                     branchDriver.branchDriver();
-                } catch (Exception e) {
-                    e.printStackTrace();
+                } catch (HospitalExceptions exception) {
+                    LOGGER.error(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.INPUT_MISMATCH));
                 }
                 break;
 
@@ -218,6 +241,7 @@ public class HospitalLogin {
                         if (globalHelpers.updateHospital()) {
                             LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.UPDATED));
                         } else {
+                            LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString(DriverConstants.UPDATEFAIL));
                         }
                         break;
                     }

@@ -14,15 +14,11 @@ import java.util.ResourceBundle;
 
 public class BranchDao {
     //sql query resource bundle
-    public static final ResourceBundle QUERIES = ResourceBundle.getBundle(BranchConstants.SQLQUEIRES,
+    private static final ResourceBundle QUERIES = ResourceBundle.getBundle(BranchConstants.SQL_QUERIES,
             Locale.getDefault());
-    //local message resource bundle
-    public static final ResourceBundle LOCAL_MESSAGES_BUNDLE = ResourceBundle.getBundle(BranchConstants.DOCTOR,
-            Locale.getDefault());
-
     private static final Logger LOGGER = LogManager.getLogger(BranchDao.class);
     //establishing connection between DAO and db
-    private Connection connection = new DatabaseConnection().createconnection();
+    private Connection connection = DatabaseConnection.createconnection();
 
      /*
     creates new Branch record
@@ -48,13 +44,10 @@ public class BranchDao {
             statement.setInt(3, hospitalId);
             result = statement.executeUpdate();
 
-        } catch (Exception exception) {
+        } catch (SQLException exception) {
             LOGGER.error(exception.getMessage());
         }
-        if (result > 0) {
-            return true;
-        }
-        return false;
+        return result > 0;
     }
 
     /*
@@ -77,7 +70,7 @@ public class BranchDao {
             }
             return branchRecord;
 
-        } catch (Exception exception) {
+        } catch (SQLException exception) {
             LOGGER.error(exception.getMessage());
         }
         return branchRecord;
@@ -101,58 +94,59 @@ public class BranchDao {
             statement.setInt(4, branchId);
 
             result = statement.executeUpdate();
-        } catch (Exception exception) {
+        } catch (SQLException exception) {
             LOGGER.error(exception.getMessage());
         }
-        if (result > 0) {
-            return true;
-        }
-        return false;
+        return result > 0;
     }
 
     public boolean branchEntry(String patientName, String doctorName, String branchName) {
-        int result = 0;
+        int result ;
         int patientId = 0;
         int doctorId = 0;
         int branchId = 0;
         try {
-            PreparedStatement statement = connection.prepareStatement(QUERIES.getString(BranchConstants.USER_ID));
-            statement.setString(1, patientName);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                patientId = resultSet.getInt(1);
-            }
-            statement = connection.prepareStatement(QUERIES.getString(BranchConstants.USER_ID));
-            statement.setString(1, doctorName);
-            resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                doctorId = resultSet.getInt(1);
-            }
-            statement = connection.prepareStatement(QUERIES.getString(BranchConstants.BRANCH_ID));
-            statement.setString(1, branchName);
-            resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                branchId = resultSet.getInt(1);
-            }
-            statement = connection.prepareStatement(QUERIES.getString(BranchConstants.BRANCH_USER));
-            statement.setInt(1, branchId);
-            statement.setInt(2, patientId);
-            result = statement.executeUpdate();
-
-            statement = connection.prepareStatement(QUERIES.getString(BranchConstants.BRANCH_USER));
-            statement.setInt(1, branchId);
-            statement.setInt(2, doctorId);
-            result = statement.executeUpdate();
-
-            statement = connection.prepareStatement(QUERIES.getString(BranchConstants.PATIENT_DOCTOR));
-            statement.setInt(1, patientId);
-            statement.setInt(2, doctorId);
+//            PreparedStatement statement = connection.prepareStatement(QUERIES.getString(BranchConstants.USER_ID));
+//            statement.setString(1, patientName);
+//            ResultSet resultSet = statement.executeQuery();
+//            if (resultSet.next()) {
+//                patientId = resultSet.getInt(1);
+//            }
+//            statement = connection.prepareStatement(QUERIES.getString(BranchConstants.USER_ID));
+//            statement.setString(1, doctorName);
+//            resultSet = statement.executeQuery();
+//            if (resultSet.next()) {
+//                doctorId = resultSet.getInt(1);
+//            }
+//            statement = connection.prepareStatement(QUERIES.getString(BranchConstants.BRANCH_ID));
+//            statement.setString(1, branchName);
+//            resultSet = statement.executeQuery();
+//            if (resultSet.next()) {
+//                branchId = resultSet.getInt(1);
+//            }
+//            statement = connection.prepareStatement(QUERIES.getString(BranchConstants.BRANCH_USER));
+//            statement.setInt(1, branchId);
+//            statement.setInt(2, patientId);
+//            statement.executeUpdate();
+//
+//            statement = connection.prepareStatement(QUERIES.getString(BranchConstants.BRANCH_USER));
+//            statement.setInt(1, branchId);
+//            statement.setInt(2, doctorId);
+//            statement.executeUpdate();
+//
+//            statement = connection.prepareStatement(QUERIES.getString(BranchConstants.PATIENT_DOCTOR));
+//            statement.setInt(1, patientId);
+//            statement.setInt(2, doctorId);
+            PreparedStatement statement = connection.prepareStatement(QUERIES.getString(BranchConstants.DOC_PAT_BRAN));
+            statement.setString(1,patientName);
+            statement.setString(2,doctorName);
+            statement.setString(3,branchName);
             result = statement.executeUpdate();
             if (result > 0) {
                 return true;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage());
         }
         return false;
     }

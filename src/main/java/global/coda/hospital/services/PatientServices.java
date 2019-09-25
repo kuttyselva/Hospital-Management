@@ -54,9 +54,14 @@ public class PatientServices implements PatientInterface {
 
             case 2: {
                 //update age
-                record.setAge(Integer.parseInt(newPatientValue));
-                result = new PatientSqlDAO().updatePatient(record);
+                try {
+                    record.setAge(Integer.parseInt(newPatientValue));
+                    result = new PatientSqlDAO().updatePatient(record);
+                } catch (NumberFormatException exception) {
+                    LOGGER.error(ServiceConstants.INPUT_MISMATCH);
+                }
                 break;
+
             }
             case 3: {
                 //update phone

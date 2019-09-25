@@ -87,13 +87,5 @@ public class PatientRecord {
 		this.phone = phone;
 	}
 
-    public void BeanRecordInsert(int id,int age, String name,String location,String password,String phone,String disease) {
-        this.setAge(age);
-        this.setId(id);
-        this.setName(name);
-        this.setLocation(location);
-        this.setPassword(password);
-        this.setPhone(phone);
-        this.setDisease(disease);
-    }
+    
 }

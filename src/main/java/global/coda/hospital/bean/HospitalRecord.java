@@ -9,14 +9,8 @@ public class HospitalRecord {
         this.hospitalName = hospitalName;
     }
 
-    public int getHospitalId() {
-        return hospitalId;
-    }
 
-    public void setHospitalId(int hospitalId) {
-        this.hospitalId = hospitalId;
-    }
 
     private String hospitalName;
-    private int hospitalId;
+
 }

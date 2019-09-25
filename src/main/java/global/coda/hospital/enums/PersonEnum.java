@@ -3,7 +3,7 @@ package global.coda.hospital.enums;
 import java.util.*;
 
 public enum PersonEnum {
-	MODIFY(1),VIEW(2);
+	MODIFY(1),VIEW(2),DEFAULT(3);
 	private final int value;
 	private static HashMap<Integer, PersonEnum> map = new HashMap<>();
 	
