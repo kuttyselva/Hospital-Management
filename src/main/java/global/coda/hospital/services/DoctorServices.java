@@ -1,71 +1,46 @@
 package global.coda.hospital.services;
 
-import global.coda.hospital.bean.DoctorRecord;
-import global.coda.hospital.bean.PatientRecord;
 import global.coda.hospital.doctordao.DoctorDAO;
-import global.coda.hospital.driver.DriverConstants;
-import global.coda.hospital.userinterface.DoctorInterface;
+import global.coda.hospital.userinterface.UserInterface;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-public class DoctorServices implements DoctorInterface {
+public class DoctorServices implements UserInterface {
     // Logger class will log the status
     private static final Logger LOGGER = LogManager.getLogger(DoctorServices.class);
     // resource bundle initialization
-    public static final ResourceBundle LOCAL_MESSAGES_BUNDLE = ResourceBundle.getBundle(ServiceConstants.SQLQUERIES,
+    public static final ResourceBundle LOCAL_MESSAGES_BUNDLE = ResourceBundle.getBundle("sqlqueries",
             Locale.getDefault());
-    public static final ResourceBundle LOCAL_MESSAGES = ResourceBundle.getBundle(ServiceConstants.LOGIN,
-            Locale.getDefault());
-    private DoctorDAO doctordao = new DoctorDAO();
-    /*
+/*
 performs doctor role services
 updataing user
 view patients in a branch
 inputs : choice , doctor id , new value
  */
-
-
     @Override
-    public boolean createDoctor(DoctorRecord record) {
-        return doctordao.createDoctorRecord(record);
-    }
-
-    @Override
-    public boolean updateDoctor(int modifyChoice, String doctorName, String newdoctorValue) {
-        DoctorRecord record = new DoctorDAO().getDoctorRecord(doctorName);
+    public boolean updateUser(int modifyChoice, int doctorUserId, String newdoctorValue) {
         boolean result = false;
         switch (modifyChoice) {
             case 1: {
                 //location update
-                record.setLocation(newdoctorValue);
-                result = new DoctorDAO().updateDoctor(record);
+                String query = LOCAL_MESSAGES_BUNDLE.getString(ServiceConstants.UPDATELOCATION);
+                result = new DoctorDAO().updateDoctor(query, doctorUserId, newdoctorValue);
                 break;
             }
 
             case 2: {
                 //update age
-                try {
-                    record.setAge(Integer.parseInt(newdoctorValue));
-                    result = new DoctorDAO().updateDoctor(record);
-                }catch (NumberFormatException exception){
-                    LOGGER.error(ServiceConstants.INPUT_MISMATCH);
-                }
+                String query = LOCAL_MESSAGES_BUNDLE.getString(ServiceConstants.UPDATEAGE);
+                result = new DoctorDAO().updateDoctor(query, doctorUserId, newdoctorValue);
                 break;
             }
             case 3: {
                 //update phone
-                record.setPhone(newdoctorValue);
-                result = new DoctorDAO().updateDoctor(record);
-                break;
-            }
-            case 4: {
-                //update Disease
-                record.setSpeciality(newdoctorValue);
-                result = new DoctorDAO().updateDoctor(record);
+                String query = LOCAL_MESSAGES_BUNDLE.getString(ServiceConstants.UPDATEPHONE);
+                result = new DoctorDAO().updateDoctor(query, doctorUserId, newdoctorValue);
                 break;
             }
 
@@ -74,10 +49,11 @@ inputs : choice , doctor id , new value
     }
 
     @Override
-    public List<PatientRecord> viewUsers(String branchname) {
+    public boolean viewUsers(String branchname) {
         //view patients in branch
-        List<PatientRecord> result = null;
-        result = new DoctorDAO().viewDoctorDetails(branchname);
+        boolean result = false;
+        String viewDoctorQuery = LOCAL_MESSAGES_BUNDLE.getString(ServiceConstants.PATIENTBRANCH);
+        result = new DoctorDAO().viewUserDetails(viewDoctorQuery, branchname);
         return result;
     }
 }

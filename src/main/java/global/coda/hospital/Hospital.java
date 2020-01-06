@@ -8,7 +8,7 @@ import org.apache.logging.log4j.Logger;
 
 import global.coda.hospital.constants.HospitalConstants;
 import global.coda.hospital.exceptions.HospitalExceptions;
-import global.coda.hospital.driver.HospitalLogin;
+import global.coda.hospital.login.HospitalLogin;
 
 /*
  * hospital management application

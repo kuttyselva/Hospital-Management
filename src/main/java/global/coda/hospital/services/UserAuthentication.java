@@ -2,7 +2,7 @@ package global.coda.hospital.services;
 
 import java.util.List;
 
-import global.coda.hospital.databasedao.AuthenticationDao;
+import global.coda.hospital.hospitaldao.AuthenticationDao;
 
 public class UserAuthentication {
 	
@@ -11,6 +11,6 @@ public class UserAuthentication {
 		 * connects dao layer to get role id of user
 		 */
 		AuthenticationDao auth=new AuthenticationDao();
-		return auth.authUser(username, password);
+		return auth.Authuser(username, password);
 	}
 }
