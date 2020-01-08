@@ -2,9 +2,12 @@ package global.coda.hospital.bean;
 
 
 public class PatientRecord {
-    @Override
+    
+
+	@Override
 	public String toString() {
-		return "PatientRecord [id=" + id + ", age=" + age + ", name=" + name + ", location=" + location + "]";
+		return "PatientRecord [id=" + id + ", age=" + age + ", name=" + name + ", location=" + location + ", password="
+				+ password + ", phone=" + phone + ", disease=" + disease + "]";
 	}
 
 	private int id;
