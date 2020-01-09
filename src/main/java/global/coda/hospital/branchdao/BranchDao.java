@@ -55,7 +55,7 @@ public class BranchDao {
            input branch name
            output branchrecord for successful Execution
             */
-    public BranchRecord getBranchRecord(String branchName) {
+    public final BranchRecord getBranchRecord(String branchName) {
         BranchRecord branchRecord = null;
         try {
             branchRecord = new BranchRecord();
@@ -101,7 +101,7 @@ public class BranchDao {
     }
 
     public boolean branchEntry(String patientName, String doctorName, String branchName) {
-        int result ;
+        int result;
         int patientId = 0;
         int doctorId = 0;
         int branchId = 0;
@@ -138,9 +138,9 @@ public class BranchDao {
 //            statement.setInt(1, patientId);
 //            statement.setInt(2, doctorId);
             PreparedStatement statement = connection.prepareStatement(QUERIES.getString(BranchConstants.DOC_PAT_BRAN));
-            statement.setString(1,patientName);
-            statement.setString(2,doctorName);
-            statement.setString(3,branchName);
+            statement.setString(1 , patientName);
+            statement.setString(2 , doctorName);
+            statement.setString(3 , branchName);
             result = statement.executeUpdate();
             if (result > 0) {
                 return true;

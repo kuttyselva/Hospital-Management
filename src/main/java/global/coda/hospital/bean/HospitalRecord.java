@@ -1,16 +1,23 @@
 package global.coda.hospital.bean;
 
+/**
+ * @author VC
+ */
 public class HospitalRecord {
-    public String getHospitalName() {
-        return hospitalName;
-    }
+	/**
+	 * @return hospitalname name of hosp.
+	 */
+	public String getHospitalName() {
+		return hospitalName;
+	}
 
-    public void setHospitalName(String hospitalName) {
-        this.hospitalName = hospitalName;
-    }
+	/**
+	 * @param hospitalName name of hospital.
+	 */
+	public void setHospitalName(String hospitalName) {
+		this.hospitalName = hospitalName;
+	}
 
-
-
-    private String hospitalName;
+	private String hospitalName;
 
 }

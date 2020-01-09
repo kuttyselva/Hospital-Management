@@ -51,7 +51,7 @@ public class UpdateServlet extends HttpServlet {
 			request.getRequestDispatcher("update.jsp").forward(request, response);
 		} else {
 			out.print("Session Expired");
-			response.sendRedirect("index.jsp");
+			response.sendRedirect("index.html");
 		}
 	}
 

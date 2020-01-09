@@ -8,7 +8,9 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
-
+/**
+ * @author VC
+ */
 public class BranchServices implements AdminInterface {
     // Logger class will log the status
     private static final Logger LOGGER = LogManager.getLogger(BranchServices.class);
@@ -22,12 +24,18 @@ public class BranchServices implements AdminInterface {
         return branchDao.createBranchRecord(record);
 
     }
-
+/**
+ * @param patientName of patient.
+ * @param doctorName of patient.
+ * @param branchName of patient.
+ * @return booleanvalue for entry.
+ */
     public boolean patientDoctorEntry(String patientName, String doctorName, String branchName){
         return branchDao.branchEntry(patientName,doctorName,branchName);
     }
 
     @Override
+    
     public boolean modifyBranch(int modifyChoice, String branchName, String newValue) {
         BranchRecord branchRecord=new BranchDao().getBranchRecord(branchName);
         boolean result =false;
@@ -52,7 +60,6 @@ public class BranchServices implements AdminInterface {
             }
             default:break;
         }
-
         return result;
     }
 }

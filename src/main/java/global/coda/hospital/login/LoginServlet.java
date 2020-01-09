@@ -15,7 +15,7 @@ import global.coda.hospital.databasedao.AuthenticationDao;
 import global.coda.hospital.patientdao.PatientSqlDAO;
 
 /**
- * Servlet implementation class LoginServlet
+ * Servlet implementation class LoginServlet.
  */
 
 @WebServlet(name = "LoginServlet", urlPatterns = { "login" }, loadOnStartup = 1)
@@ -33,6 +33,9 @@ public class LoginServlet extends HttpServlet {
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * initialize patientDAO and record object get user data.
+	 */
 	public void init() {
 		patientDao = new PatientSqlDAO();
 		record = new PatientRecord();
@@ -41,6 +44,10 @@ public class LoginServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
+	 * @param request  gets the request data.
+	 * @param response prints served path.
+	 * @throws ServletException handles servlet exceptions.
+	 * @throws IOException      handles IOexceptions.
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -51,6 +58,10 @@ public class LoginServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
+	 * @param request  gets the request data.
+	 * @param response prints served path.
+	 * @throws ServletException handles servlet exceptions.
+	 * @throws IOException      handles IOexceptions.
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -59,13 +70,11 @@ public class LoginServlet extends HttpServlet {
 
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
-
 		String name = request.getParameter("name");
 		String password = request.getParameter("password");
 		HttpSession session = request.getSession();
-		if (auth.authUser(name, password) != null ) {
-			
-			
+		if (auth.authUser(name, password) != null) {
+
 			out.print("login successful <br/>");
 			record = patientDao.getPatientRecord(name);
 			out.print(record.toString());
