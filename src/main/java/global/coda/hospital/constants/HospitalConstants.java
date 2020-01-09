@@ -1,5 +1,9 @@
 package global.coda.hospital.constants;
 
+/**
+ * @author VC
+ *
+ */
 public class HospitalConstants {
 	public static final String HOS0000P = "HOS0000P";
 	public static final String HOS0001P = "HOS0001P";

@@ -14,7 +14,7 @@ import global.coda.hospital.bean.PatientRecord;
 import global.coda.hospital.patientdao.PatientSqlDAO;
 
 /**
- * Servlet implementation class UserDetails
+ * Servlet implementation class UserDetails.
  */
 @WebServlet(name = "UserDetails", urlPatterns = { "userdetail" }, loadOnStartup = 1)
 
@@ -31,6 +31,9 @@ public class UserDetails extends HttpServlet {
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * initialize objects.
+	 */
 	public void init() {
 		patientDao = new PatientSqlDAO();
 		record = new PatientRecord();
@@ -39,6 +42,10 @@ public class UserDetails extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
+	 * @param request  from user.
+	 * @param response to user.
+	 * @throws ServletException to handle servlet error.
+	 * @throws IOException to handle IO error.
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -46,7 +53,7 @@ public class UserDetails extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		HttpSession session = request.getSession();
 		if (session.getAttribute("username") != null) {
-			record = patientDao.getPatientRecord((String)session.getAttribute("username"));	
+			record = patientDao.getPatientRecord((String) session.getAttribute("username"));
 			request.setAttribute("record", record);
 			request.getRequestDispatcher("userdetails.jsp").forward(request, response);
 		} else {
@@ -59,6 +66,10 @@ public class UserDetails extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
+	 * @param request  from user.
+	 * @param response to user.
+	 * @throws ServletException to handle servlet error.
+	 * @throws IOException to handle IO error.
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

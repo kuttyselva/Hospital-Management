@@ -1,7 +1,15 @@
 package global.coda.hospital.patientdaocsv;
 
+/**
+ * @author VC
+ *
+ */
 public class PersonType {
-public enum person{
-	PATIENT,DOCTOR
-}
+	/**
+	 * enums for person.
+	 *
+	 */
+	public enum person {
+		PATIENT, DOCTOR
+	}
 }

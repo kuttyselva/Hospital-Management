@@ -1,51 +1,83 @@
 package global.coda.hospital.bean;
 
+/**
+ * @author VC
+ */
 public class BranchRecord {
-    private  int id;
-    private String branchName;
-    private String location;
-    private String hospitalName;
-    private int hospitalId;
+	private int id;
+	private String branchName;
+	private String location;
+	private String hospitalName;
+	private int hospitalId;
 
-    public int getHospitalId() {
-        return hospitalId;
-    }
+	/**
+	 * @return id of patient.
+	 */
+	public int getHospitalId() {
+		return hospitalId;
+	}
 
-    public void setHospitalId(int hospitalId) {
-        this.hospitalId = hospitalId;
-    }
+	/**
+	 * @param hospitalId of patient.
+	 */
+	public void setHospitalId(int hospitalId) {
+		this.hospitalId = hospitalId;
+	}
 
-    public int getId() {
-        return id;
-    }
+	/**
+	 * @return id of patient.
+	 */
+	public int getId() {
+		return id;
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	/**
+	 * @param id of patient.
+	 */
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public String getBranchName() {
-        return branchName;
-    }
+	/**
+	 * @return branch of patient.
+	 */
+	public String getBranchName() {
+		return branchName;
+	}
 
-    public void setBranchName(String branchName) {
-        this.branchName = branchName;
-    }
+	/**
+	 * @param branchName of patient.
+	 */
+	public void setBranchName(String branchName) {
+		this.branchName = branchName;
+	}
 
-    public String getLocation() {
-        return location;
-    }
+	/**
+	 * @return location of patient.
+	 */
+	public String getLocation() {
+		return location;
+	}
 
-    public void setLocation(String location) {
-        this.location = location;
-    }
+	/**
+	 * @param location of patient.
+	 */
+	public void setLocation(String location) {
+		this.location = location;
+	}
 
-    public String getHospitalName() {
-        return hospitalName;
-    }
+	/**
+	 * @return name of patient.
+	 */
+	public String getHospitalName() {
+		return hospitalName;
+	}
 
-    public void setHospitalName(String hospitalName) {
-        this.hospitalName = hospitalName;
-    }
-
+	/**
+	 * @param hospitalName of patient.
+	 */
+	public void setHospitalName(String hospitalName) {
+		this.hospitalName = hospitalName;
+	}
 
 }

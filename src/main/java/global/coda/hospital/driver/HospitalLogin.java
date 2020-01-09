@@ -61,8 +61,10 @@ public class HospitalLogin {
 			}
 		}
 	}
+
 	/**
 	 * Shows user role menu.
+	 * 
 	 * @param roleid stores role id of the user.
 	 * @throws HospitalExceptions handles hospitalexceptions.
 	 */
@@ -266,7 +268,8 @@ public class HospitalLogin {
 				branchDriver.branchDriver();
 				break;
 			}
-			default : break;
+			default:
+				break;
 			}
 
 			break;

@@ -1,7 +1,13 @@
 package global.coda.hospital.persondao;
 
+/**
+ * @author VC
+ */
 public class PersonTypeSql {
-public enum person{
-	PATIENT,DOCTOR
-}
+	/**
+	 * enum for person
+	 */
+	public enum person {
+		PATIENT, DOCTOR
+	}
 }

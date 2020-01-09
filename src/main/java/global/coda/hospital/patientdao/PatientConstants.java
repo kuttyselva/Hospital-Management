@@ -1,10 +1,13 @@
 package global.coda.hospital.patientdao;
 
+/**
+ * @author VC
+ *
+ */
 public class PatientConstants {
 
 	public static final String PATIENT = "patient";
 	public static final String SQLQUEIRES = "sqlqueries";
-
 
 	public static final String DOCTOR_IN_BRANCH = "DOCB004Q";
 
@@ -13,6 +16,5 @@ public class PatientConstants {
 	static final String PATIENT_RECORD = "PATDET0Q";
 	static final String PATIENT_CREATE_USER = "PATCU00Q";
 	static final String PATIENT_CREATE_PATIENT = "PATCP00Q";
-
 
 }

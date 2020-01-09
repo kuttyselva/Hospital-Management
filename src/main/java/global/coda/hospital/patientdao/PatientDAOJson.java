@@ -10,12 +10,22 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import global.coda.hospital.bean.PatientRecord;
 
-public class PatientDAOJson extends PersonDAOPattern{
+/**
+ * @author VC
+ *
+ */
+public class PatientDAOJson extends PersonDAOPattern {
+	/**
+	 * constructor.
+	 */
 	public PatientDAOJson() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * @param patientRecords of users.
+	 */
 	public void patientDataBase(List<PatientRecord> patientRecords) {
 		ObjectMapper jsonmapper = new ObjectMapper();
 		try {

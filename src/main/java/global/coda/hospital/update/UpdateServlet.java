@@ -14,7 +14,7 @@ import global.coda.hospital.bean.PatientRecord;
 import global.coda.hospital.patientdao.PatientSqlDAO;
 
 /**
- * Servlet implementation class UpdateServlet
+ * Servlet implementation class UpdateServlet.
  */
 
 @WebServlet(name = "UpdateServlet", urlPatterns = { "update" }, loadOnStartup = 1)
@@ -31,6 +31,9 @@ public class UpdateServlet extends HttpServlet {
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * initialize objects.
+	 */
 	public void init() {
 		patientDao = new PatientSqlDAO();
 		record = new PatientRecord();
@@ -39,6 +42,10 @@ public class UpdateServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
+	 * @param request  from user.
+	 * @param response to user.
+	 * @throws ServletException to handle servlet error.
+	 * @throws IOException to handle IO error.
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -58,6 +65,10 @@ public class UpdateServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
+	 * @param request  from user.
+	 * @param response to user.
+	 * @throws ServletException to handle servlet error.
+	 * @throws IOException      to handle IO error.
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

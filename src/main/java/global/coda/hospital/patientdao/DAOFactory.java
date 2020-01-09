@@ -9,6 +9,10 @@ import org.apache.logging.log4j.Logger;
 import global.coda.hospital.constants.HospitalConstants;
 import global.coda.hospital.patientdao.PersonType.person;
 
+/**
+ * @author VC
+ *
+ */
 public class DAOFactory {
 	// Logger class will log the status
 	public static final Logger LOGGER = LogManager.getLogger(DAOFactory.class);
@@ -16,6 +20,10 @@ public class DAOFactory {
 	public static final ResourceBundle LOCAL_MESSAGES_BUNDLE = ResourceBundle.getBundle("messages",
 			Locale.getDefault());
 
+	/**
+	 * @param value of pattern.
+	 * @return pattern type.
+	 */
 	public static PersonDAOPattern storagePattern(person value) {
 		PersonDAOPattern personObject = null;
 		switch (value) {

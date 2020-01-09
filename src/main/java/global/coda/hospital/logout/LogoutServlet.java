@@ -20,7 +20,14 @@ public class LogoutServlet extends HttpServlet {
 		// TODO Auto-generated constructor stub
 	}
 
-	
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 * @param request  gets the request data.
+	 * @param response prints served path.
+	 * @throws ServletException handles servlet exceptions.
+	 * @throws IOException      handles IOexceptions.
+	 */
 	protected void doGet(final HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
@@ -29,7 +36,14 @@ public class LogoutServlet extends HttpServlet {
 		response.sendRedirect("index.jsp");
 	}
 
-	
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 * @param request  gets the request data.
+	 * @param response prints served path.
+	 * @throws ServletException handles servlet exceptions.
+	 * @throws IOException      handles IOexceptions.
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub

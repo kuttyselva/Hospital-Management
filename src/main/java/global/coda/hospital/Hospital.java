@@ -14,6 +14,9 @@ import global.coda.hospital.driver.HospitalLogin;
  * hospital management application
  * base class handling CRUD operations
  */
+/**
+ * hospital management application. base class handling CRUD operations.
+ */
 public class Hospital {
 	// Logger class will log the status
 	private static final Logger LOGGER = LogManager.getLogger(Hospital.class);
@@ -21,10 +24,14 @@ public class Hospital {
 	public static final ResourceBundle LOCAL_MESSAGES_BUNDLE = ResourceBundle.getBundle("messages",
 			Locale.getDefault());
 
+	/**
+	 * @param args for input.
+	 * @throws HospitalExceptions for handling.
+	 */
 	public static void main(String args[]) throws HospitalExceptions {
 		// choice printing
 //		HospitalRecord record = new HospitalRecord();
-		HospitalLogin login=new HospitalLogin();
+		HospitalLogin login = new HospitalLogin();
 		LOGGER.info(LOCAL_MESSAGES_BUNDLE.getString((HospitalConstants.HOS0002D)));
 		login.HospitalSignin();
 //		record.records();

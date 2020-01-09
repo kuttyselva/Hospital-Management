@@ -1,19 +1,18 @@
 package global.coda.hospital.services;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
-
 import global.coda.hospital.bean.DoctorRecord;
 import global.coda.hospital.bean.PatientRecord;
 import global.coda.hospital.patientdao.PatientConstants;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import global.coda.hospital.patientdao.PatientSqlDAO;
 import global.coda.hospital.userinterface.PatientInterface;
-
+/**
+ * @author VC
+ */
 public class PatientServices implements PatientInterface {
     // Logger class will log the status
     private static final Logger LOGGER = LogManager.getLogger(PatientServices.class);
@@ -21,7 +20,9 @@ public class PatientServices implements PatientInterface {
     public static final ResourceBundle LOCAL_MESSAGES_BUNDLE = ResourceBundle.getBundle(PatientConstants.PATIENT,
             Locale.getDefault());
     private PatientSqlDAO patientdao = new PatientSqlDAO();
-
+/**
+ * PatientService constructor.
+ */
     public PatientServices() {
     }
 
@@ -40,6 +41,12 @@ public class PatientServices implements PatientInterface {
         return false;
     }
 
+    /**
+     * @param modifyChoice to get choice.
+     * @param patientName to get name.
+     * @param newPatientValue holds new patientdata.
+     * @return bool for successful update.
+     */
     @Override
     public boolean updateUser(int modifyChoice, String patientName, String newPatientValue) {
         PatientRecord record = new PatientSqlDAO().getPatientRecord(patientName);
@@ -75,11 +82,15 @@ public class PatientServices implements PatientInterface {
                 result = new PatientSqlDAO().updatePatient(record);
                 break;
             }
+            default: break;
 
         }
         return result;
     }
-
+    /**
+     * @param branchname to store name of branch.
+     * @return list for successful exe.
+     */
     @Override
     public List<DoctorRecord> viewUsers(String branchname) {
         List<DoctorRecord> result = null;
